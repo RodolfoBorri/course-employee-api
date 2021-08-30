@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -76,6 +77,25 @@ public class CursoFuncionarioController extends ControllerBase{
 		cursoFuncionarioService.atualiza(id, cursoFuncionarioRequestDTO);
 		
 		System.out.println("Entrou atualiza CursoFuncionarioController, DTO:" + cursoFuncionarioRequestDTO);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<ResponseDTO<CursoFuncionarioResponseDTO>> consultaPorId(@PathVariable Long id) {
+	
+		CursoFuncionarioResponseDTO cursoFuncionarioResponseDTO = cursoFuncionarioService.consultaCursoFuncionarioPorId(id);
+		
+		System.out.println("Entrou consultaPorIdCurso CursoFuncionarioController, id: " + id);
+		
+		return ResponseEntity.ok(new ResponseDTO<>(cursoFuncionarioResponseDTO));	
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<ResponseDTO<Void>> deleta(@PathVariable Long id){
+		cursoFuncionarioService.deleta(id);
+		
+		System.out.println("Entrou deleta CursoFuncionarioController, id:" + id);
 		
 		return ResponseEntity.noContent().build();
 	}

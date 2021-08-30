@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.uem.assincrono1.assincrono1.Exception.ServiceException;
@@ -84,6 +85,19 @@ public class CursoService {
 		if (cursoExistente.isPresent() && !cursoExistente.get().getId().equals(id)) {
 			throw new ServiceException("DB-3", cursoRequestDTO.getNomeCurso());
 		}		
+	}
+
+	public void deleta(Long id) {
+		Curso cursoExistente = buscaPorId(id);
+		
+		try {
+			cursoRepository.delete(cursoExistente);
+		}
+		catch(DataIntegrityViolationException e){
+			throw new ServiceException("DB-11", cursoExistente.getNomeCurso());		
+			
+		}
+		
 	}
 
 }

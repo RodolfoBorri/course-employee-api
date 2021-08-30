@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.uem.assincrono1.assincrono1.Exception.ServiceException;
@@ -78,8 +79,7 @@ public class FuncionarioService {
 		
 		Funcionario funcionarioAtualizado = funcionarioRequestDTOParaEntidade(funcionarioRequestDTO, buscaPorId(id));
 		
-		funcionarioRepository.save(funcionarioAtualizado);
-		
+		funcionarioRepository.save(funcionarioAtualizado);		
 	}
 
 	private void validaAtualizacao(Long id, FuncionarioRequestDTO funcionarioRequestDTO) {
@@ -87,6 +87,18 @@ public class FuncionarioService {
 
 		if (funcionarioExistente.isPresent() && !funcionarioExistente.get().getId().equals(id)) {
 			throw new ServiceException("DB-2", funcionarioRequestDTO.getMatriculaFuncionario());
+		}
+	}
+
+	public void deleta(Long id) {
+		
+		Funcionario funcionarioExistente = buscaPorId(id);
+		
+		try {
+			funcionarioRepository.delete(funcionarioExistente);	
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new ServiceException("DB-10", funcionarioExistente.getNomeFuncionario());			
 		}
 	}
 

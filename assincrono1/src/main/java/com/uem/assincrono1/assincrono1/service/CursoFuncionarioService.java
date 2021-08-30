@@ -146,6 +146,22 @@ public class CursoFuncionarioService {
 		
 		return cursoFuncionarioExistente.get();
 	}
+	
+	private CursoFuncionario buscaPorId(Long id) {
+		return cursoFuncionarioRepository.findById(id).orElseThrow(() -> new ServiceException("DB-6", id));
+	}
+
+	public void deleta(Long id) {
+		CursoFuncionario cursoFuncionarioExistente = buscaPorId(id);
+		
+		cursoFuncionarioRepository.delete(cursoFuncionarioExistente);
+	}
+	
+	public CursoFuncionarioResponseDTO consultaCursoFuncionarioPorId(Long id) {
+		CursoFuncionario cursoFuncionario = buscaPorId(id);
+		
+		return entidadeParaCursoFuncionarioResponseDTO(cursoFuncionario);
+	}
 
 }
 

@@ -94,4 +94,10 @@ public class DependenteService {
 			throw new ServiceException("DB-4", dependenteRequestDTO.getNomeDependente());
 		}		
 	}
+
+	public void deleta(Long id) {
+		Dependente dependenteExistente = buscaPorId(id);
+		
+		dependenteRepository.delete(dependenteExistente);		
+	}
 }
