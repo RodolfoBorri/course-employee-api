@@ -36,8 +36,8 @@ public class CursoController extends ControllerBase{
 	public ResponseEntity<ResponseDTO<CursoResponseDTO>> cadastra(@Valid @RequestBody CursoRequestDTO cursoRequestDTO) {
 		
 		CursoResponseDTO cursoResponseDTO = cursoService.cadastra(cursoRequestDTO);
-
-		System.out.println(cursoRequestDTO);
+		
+		System.out.println("Entrou cadastra CursoController, DTO:" + cursoRequestDTO);
 		
 		return ResponseEntity.status(HttpStatus.CREATED)
 							 .body(new ResponseDTO<>(cursoResponseDTO));
@@ -56,12 +56,16 @@ public class CursoController extends ControllerBase{
 	
 		CursoResponseDTO cursoResponseDTO = cursoService.consultaCursoPorId(id);
 		
+		System.out.println("Entrou consultaPorId CursoController, id: " + id);
+		
 		return ResponseEntity.ok(new ResponseDTO<>(cursoResponseDTO));	
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<ResponseDTO<Void>> atualiza(@PathVariable Long id, @Valid @RequestBody CursoRequestDTO cursoRequestDTO){
 		cursoService.atualiza(id, cursoRequestDTO);
+		
+		System.out.println("Entrou atualiza CursoController, DTO:" + cursoRequestDTO);	
 		
 		return ResponseEntity.noContent().build();
 	}

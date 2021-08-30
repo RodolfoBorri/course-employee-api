@@ -38,7 +38,7 @@ public class FuncionarioController extends ControllerBase{
 		
 		FuncionarioResponseDTO funcionarioResponseDTO = funcionarioService.cadastra(funcionarioRequestDTO);
 
-		System.out.println(funcionarioRequestDTO);
+		System.out.println("Entrou cadastra FuncionarioController, DTO:" + funcionarioRequestDTO);
 		
 		return ResponseEntity.status(HttpStatus.CREATED)
 							 .body(new ResponseDTO<>(funcionarioResponseDTO));
@@ -57,12 +57,16 @@ public class FuncionarioController extends ControllerBase{
 	
 		FuncionarioResponseDTO funcionarioResponseDTO = funcionarioService.consultaFuncionarioPorId(id);
 		
+		System.out.println("Entrou consultaPorId FuncionarioController, id: " + id);
+		
 		return ResponseEntity.ok(new ResponseDTO<>(funcionarioResponseDTO));	
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<ResponseDTO<Void>> atualiza(@PathVariable Long id, @Valid @RequestBody FuncionarioRequestDTO funcionarioRequestDTO){
 		funcionarioService.atualiza(id, funcionarioRequestDTO);
+		
+		System.out.println("Entrou atualiza FuncionarioController, DTO:" + funcionarioRequestDTO);
 		
 		return ResponseEntity.noContent().build();
 	}

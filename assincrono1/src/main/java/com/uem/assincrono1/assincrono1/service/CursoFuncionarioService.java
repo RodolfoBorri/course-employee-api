@@ -40,6 +40,7 @@ public class CursoFuncionarioService {
 		return CursoFuncionarioResponseDTO.builder().id(cursoFuncionario.getId())
 										  .idCurso(cursoFuncionario.getCurso().getId())
 										  .idFuncionario(cursoFuncionario.getFuncionario().getId())
+										  .anoFormacao(cursoFuncionario.getAnoFormacao())
 										  .build();
 	}
 

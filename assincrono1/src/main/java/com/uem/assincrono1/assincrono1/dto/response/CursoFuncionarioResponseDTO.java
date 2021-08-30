@@ -24,4 +24,6 @@ public class CursoFuncionarioResponseDTO {
 	private Long idCurso;
 	
 	private Long idFuncionario;
+	
+	private String anoFormacao;
 }

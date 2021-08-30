@@ -37,6 +37,8 @@ public class DependenteController extends ControllerBase{
 		
 		DependenteResponseDTO dependenteResponseDTO = dependenteService.cadastra(dependenteRequestDTO);
 		
+		System.out.println("Entrou cadastra DependenteController, DTO:" + dependenteRequestDTO);
+		
 		return ResponseEntity.status(HttpStatus.CREATED)
 							 .body(new ResponseDTO<>(dependenteResponseDTO));
 	}
@@ -54,12 +56,16 @@ public class DependenteController extends ControllerBase{
 	
 		DependenteResponseDTO dependenteResponseDTO = dependenteService.consultaDependentePorId(id);
 		
+		System.out.println("Entrou consultaPorId DependenteController, id: " + id);
+		
 		return ResponseEntity.ok(new ResponseDTO<>(dependenteResponseDTO));	
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<ResponseDTO<Void>> atualiza(@PathVariable Long id, @Valid @RequestBody DependenteRequestDTO dependenteRequestDTO){
 		dependenteService.atualiza(id, dependenteRequestDTO);
+		
+		System.out.println("Entrou atualiza DependenteController, DTO:" + dependenteRequestDTO);
 		
 		return ResponseEntity.noContent().build();
 	}

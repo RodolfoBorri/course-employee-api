@@ -37,7 +37,7 @@ public class CursoFuncionarioController extends ControllerBase{
 		
 		CursoFuncionarioResponseDTO cursoFuncionarioResponseDTO = cursoFuncionarioService.cadastra(cursoFuncionarioRequestDTO);
 
-		System.out.println(cursoFuncionarioRequestDTO);
+		System.out.println("Entrou cadastra CursoFuncionarioController, DTO:" + cursoFuncionarioRequestDTO);
 		
 		return ResponseEntity.status(HttpStatus.CREATED)
 							 .body(new ResponseDTO<>(cursoFuncionarioResponseDTO));
@@ -56,6 +56,8 @@ public class CursoFuncionarioController extends ControllerBase{
 	
 		List<CursoFuncionarioResponseDTO> cursoFuncionarioResponseDTO = cursoFuncionarioService.consultaCursosFuncionarioPorIdFuncionario(id);
 		
+		System.out.println("Entrou consultaPorIdFuncionario CursoFuncionarioController, id: " + id);
+		
 		return ResponseEntity.ok(new ResponseDTO<>(cursoFuncionarioResponseDTO));	
 	}
 	
@@ -64,12 +66,16 @@ public class CursoFuncionarioController extends ControllerBase{
 	
 		List<CursoFuncionarioResponseDTO> cursoFuncionarioResponseDTO = cursoFuncionarioService.consultaCursosFuncionarioPorIdCurso(id);
 		
+		System.out.println("Entrou consultaPorIdCurso CursoFuncionarioController, id: " + id);
+		
 		return ResponseEntity.ok(new ResponseDTO<>(cursoFuncionarioResponseDTO));	
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<ResponseDTO<Void>> atualiza(@PathVariable Long id, @Valid @RequestBody CursoFuncionarioRequestDTO cursoFuncionarioRequestDTO){
 		cursoFuncionarioService.atualiza(id, cursoFuncionarioRequestDTO);
+		
+		System.out.println("Entrou atualiza CursoFuncionarioController, DTO:" + cursoFuncionarioRequestDTO);
 		
 		return ResponseEntity.noContent().build();
 	}
