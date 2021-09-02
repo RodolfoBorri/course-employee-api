@@ -36,10 +36,10 @@ public class CursoFuncionarioService {
 		return entidadeParaCursoFuncionarioResponseDTO(cursoFuncionario);
 	}
 
-	private CursoFuncionarioResponseDTO entidadeParaCursoFuncionarioResponseDTO(CursoFuncionario cursoFuncionario) {
+	public CursoFuncionarioResponseDTO entidadeParaCursoFuncionarioResponseDTO(CursoFuncionario cursoFuncionario) {
 		return CursoFuncionarioResponseDTO.builder().id(cursoFuncionario.getId())
-										  .idCurso(cursoFuncionario.getCurso().getId())
-										  .idFuncionario(cursoFuncionario.getFuncionario().getId())
+										  .nomeCurso(cursoFuncionario.getCurso().getNomeCurso())
+										  .nomeFuncionario(cursoFuncionario.getFuncionario().getNomeFuncionario())
 										  .anoFormacao(cursoFuncionario.getAnoFormacao())
 										  .build();
 	}
@@ -161,6 +161,10 @@ public class CursoFuncionarioService {
 		CursoFuncionario cursoFuncionario = buscaPorId(id);
 		
 		return entidadeParaCursoFuncionarioResponseDTO(cursoFuncionario);
+	}
+
+	public List<CursoFuncionario> consultaTodosInscricoesPorFuncionario(Funcionario funcionario) {
+		return cursoFuncionarioRepository.findAllByFuncionario(funcionario);
 	}
 
 }

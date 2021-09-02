@@ -16,4 +16,6 @@ public interface CursoFuncionarioRepository extends JpaRepository<CursoFuncionar
 	public List<CursoFuncionario> findByFuncionario(Funcionario funcionario);
 	
 	public List<CursoFuncionario> findByCurso(Curso curso);
+
+	public List<CursoFuncionario> findAllByFuncionario(Funcionario funcionario);
 }

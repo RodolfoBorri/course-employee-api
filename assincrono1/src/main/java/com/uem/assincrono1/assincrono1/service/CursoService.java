@@ -30,7 +30,7 @@ public class CursoService {
 		return entidadeParaCursoResponseDTO(curso);
 	}
 
-	private CursoResponseDTO entidadeParaCursoResponseDTO(Curso curso) {
+	public CursoResponseDTO entidadeParaCursoResponseDTO(Curso curso) {
 		return CursoResponseDTO.builder().id(curso.getId())
 										 .nomeCurso(curso.getNomeCurso())										 
 										 .build();
@@ -94,10 +94,7 @@ public class CursoService {
 			cursoRepository.delete(cursoExistente);
 		}
 		catch(DataIntegrityViolationException e){
-			throw new ServiceException("DB-11", cursoExistente.getNomeCurso());		
-			
-		}
-		
+			throw new ServiceException("DB-11", cursoExistente.getNomeCurso());					
+		}				
 	}
-
 }

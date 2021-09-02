@@ -10,7 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.uem.assincrono1.assincrono1.Exception.ServiceException;
 import com.uem.assincrono1.assincrono1.dto.request.FuncionarioRequestDTO;
+import com.uem.assincrono1.assincrono1.dto.response.CursoFuncionarioResponseDTO;
+import com.uem.assincrono1.assincrono1.dto.response.DependenteResponseDTO;
 import com.uem.assincrono1.assincrono1.dto.response.FuncionarioResponseDTO;
+import com.uem.assincrono1.assincrono1.entity.CursoFuncionario;
+import com.uem.assincrono1.assincrono1.entity.Dependente;
 import com.uem.assincrono1.assincrono1.entity.Funcionario;
 import com.uem.assincrono1.assincrono1.repository.FuncionarioRepository;
 
@@ -19,6 +23,12 @@ public class FuncionarioService {
 
 	@Autowired
 	FuncionarioRepository funcionarioRepository;
+	
+	@Autowired
+	DependenteService dependenteService;
+	
+	@Autowired
+	CursoFuncionarioService cursosFuncionarioService;
 	
 	public FuncionarioResponseDTO cadastra(FuncionarioRequestDTO funcionarioRequestDTO) {
 		validaCadastro(funcionarioRequestDTO);
@@ -100,6 +110,32 @@ public class FuncionarioService {
 		catch (DataIntegrityViolationException e) {
 			throw new ServiceException("DB-10", funcionarioExistente.getNomeFuncionario());			
 		}
+	}
+
+	public List<DependenteResponseDTO> consultaTodosDependentesPorFuncionario(Long id) {
+		Funcionario funcionario = buscaPorId(id);
+		
+		List<Dependente> dependentes = dependenteService.consultaTodosDependentesPorFuncionario(funcionario);
+		
+		List<DependenteResponseDTO> dependentesResponse = new ArrayList<DependenteResponseDTO>();		
+		
+		for(Dependente dependente : dependentes) 
+			dependentesResponse.add(dependenteService.entidadeParaDependenteResponseDTO(dependente));
+		
+		return dependentesResponse;
+	}
+	
+	public List<CursoFuncionarioResponseDTO> consultaTodosCursosPorFuncionario(Long id) {
+		Funcionario funcionario = buscaPorId(id);
+		
+		List<CursoFuncionario> cursosFuncionario = cursosFuncionarioService.consultaTodosInscricoesPorFuncionario(funcionario);
+		
+		List<CursoFuncionarioResponseDTO> cursosFuncionarioResponse = new ArrayList<CursoFuncionarioResponseDTO>();		
+		
+		for(CursoFuncionario cursoFuncionario : cursosFuncionario)		
+			cursosFuncionarioResponse.add(cursosFuncionarioService.entidadeParaCursoFuncionarioResponseDTO(cursoFuncionario));
+		
+		return cursosFuncionarioResponse;
 	}
 
 }

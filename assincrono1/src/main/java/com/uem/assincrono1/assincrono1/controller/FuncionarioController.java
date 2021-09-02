@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uem.assincrono1.assincrono1.dto.request.FuncionarioRequestDTO;
+import com.uem.assincrono1.assincrono1.dto.response.CursoFuncionarioResponseDTO;
+import com.uem.assincrono1.assincrono1.dto.response.DependenteResponseDTO;
 import com.uem.assincrono1.assincrono1.dto.response.FuncionarioResponseDTO;
 import com.uem.assincrono1.assincrono1.dto.response.ResponseDTO;
 import com.uem.assincrono1.assincrono1.service.FuncionarioService;
@@ -61,6 +63,26 @@ public class FuncionarioController extends ControllerBase{
 		System.out.println("Entrou consultaPorId FuncionarioController, id: " + id);
 		
 		return ResponseEntity.ok(new ResponseDTO<>(funcionarioResponseDTO));	
+	}
+	
+	@GetMapping("/dependentes/{id}")
+	public ResponseEntity<ResponseDTO<List<DependenteResponseDTO>>> consultaTodosDependentesPorFuncionario(@PathVariable Long id) {
+	
+		List<DependenteResponseDTO> dependentesResponseDTO = funcionarioService.consultaTodosDependentesPorFuncionario(id);
+		
+		System.out.println("Entrou consultaTodosDependentes FuncionarioController, id: " + id);
+		
+		return ResponseEntity.ok(new ResponseDTO<>(dependentesResponseDTO));	
+	}
+	
+	@GetMapping("/cursos/{id}")
+	public ResponseEntity<ResponseDTO<List<CursoFuncionarioResponseDTO>>> consultaTodosInscricoesPorFuncionario(@PathVariable Long id) {
+	
+		List<CursoFuncionarioResponseDTO> cursoFuncionarioResponseDTO = funcionarioService.consultaTodosCursosPorFuncionario(id);
+	
+		System.out.println("Entrou consultaTodosInscricoesPorFuncionario FuncionarioController, id: " + id);
+		
+		return ResponseEntity.ok(new ResponseDTO<>(cursoFuncionarioResponseDTO));	
 	}
 	
 	@PutMapping("/{id}")

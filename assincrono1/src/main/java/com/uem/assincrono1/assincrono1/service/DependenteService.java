@@ -34,10 +34,10 @@ public class DependenteService {
 		return entidadeParaDependenteResponseDTO(dependente);
 	}
 
-	private DependenteResponseDTO entidadeParaDependenteResponseDTO(Dependente dependente) {
+	public DependenteResponseDTO entidadeParaDependenteResponseDTO(Dependente dependente) {
 		return DependenteResponseDTO.builder().id(dependente.getId())
 										 	  .nomeDependente(dependente.getNomeDependente())
-										 	  .idFuncionario(dependente.getFuncionario().getId())
+										 	  .nomeFuncionario(dependente.getFuncionario().getNomeFuncionario())
 										 	  .build();
 	}
 
@@ -99,5 +99,9 @@ public class DependenteService {
 		Dependente dependenteExistente = buscaPorId(id);
 		
 		dependenteRepository.delete(dependenteExistente);		
+	}
+
+	public List<Dependente> consultaTodosDependentesPorFuncionario(Funcionario funcionario) {
+		return dependenteRepository.findAllByFuncionario(funcionario);
 	}
 }

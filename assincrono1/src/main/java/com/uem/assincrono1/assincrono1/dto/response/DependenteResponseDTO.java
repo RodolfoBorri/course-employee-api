@@ -23,5 +23,5 @@ public class DependenteResponseDTO {
 	
 	private String nomeDependente;
 
-	private Long idFuncionario;
+	private String nomeFuncionario;
 }
